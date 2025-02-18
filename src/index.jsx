@@ -1,15 +1,23 @@
 import React from "react";
 
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom/cjs/react-router-dom";
+import { ToastContainer } from "react-toastify";
 
+import initializeAxios from "./api/axios";
 import App from "./App";
+import "./common/i18n";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
+initializeAxios();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <ToastContainer />
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 

@@ -1,24 +1,29 @@
-import "./App.css";
-// eslint-disable-next-line import/extensions
-import logo from "./logo.svg";
+import { useState } from "react";
 
-const App = () => (
-  <div className="App">
-    <header className="App-header">
-      <img alt="logo" className="App-logo" src={logo} />
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        Learn React
-      </a>
-    </header>
-  </div>
-);
+import Cart from "components/Cart";
+import PageNotFound from "components/pageNotFound";
+import { Product } from "components/Product";
+import { ProductList } from "components/ProductList";
+import { Switch, Route, Redirect } from "react-router-dom";
+
+import "./App.css";
+import CartContext from "./contexts/cartContext";
+
+const App = () => {
+  const [cartItems, setCartItems] = useState([]);
+
+  return (
+    <CartContext.Provider value={[cartItems, setCartItems]}>
+      <Switch>
+        <Route exact component={ProductList} path="/products" />
+        <Route exact component={Product} path="/products/:slug" />
+        <Route exact component={Cart} path="/cart" />
+        <Route exact path="/checkout" />
+        <Redirect exact from="/" to="/products" />
+        <Route component={PageNotFound} path="*" />
+      </Switch>
+    </CartContext.Provider>
+  );
+};
 
 export default App;
